@@ -10,9 +10,15 @@
     "test": "vitest run",
     "validate": "node tools/validate.mjs",
     "test:content": "node --test tools/content.test.mjs tools/adapter.test.mjs",
-    "test:ui": "playwright test"
+    "test:ui": "playwright test",
+    "lint": "eslint . --max-warnings 0",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run format:check && npm run lint && npm run test:content && npm test && npm run build"
   },
   "dependencies": {
+    "@noble/hashes": "^1.7.1",
     "@tanstack/react-query": "^5.90.0",
     "lucide-react": "^0.468.0",
     "p5": "^1.11.0",
@@ -20,18 +26,24 @@
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.0.0",
     "three": "^0.170.0",
-    "zod": "^3.24.0",
-    "@noble/hashes": "^1.7.1"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.51.0",
     "@types/p5": "^1.7.6",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@types/three": "^0.170.0",
     "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^10.14.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.14.0",
+    "prettier": "^3.9.10",
     "typescript": "^5.7.2",
+    "typescript-eslint": "^8.72.1",
     "vite": "^6.0.0",
-    "vitest": "^3.0.0",
-    "@playwright/test": "^1.51.0"
+    "vitest": "^5.1.0"
   }
 }

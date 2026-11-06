@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "flow-field",
   "title": "Quiet currents",
-  "description": "A thousand small journeys, guided by an invisible field. Touch the canvas to plant a new current.",
+  "description": "A thousand small journeys, guided by an invisible field. Drag gently or enable tilt to guide the flow. Each gesture eases into the current and slowly settles away.",
   "category": "Organic",
   "engine": "p5",
   "engineVersion": "1.11",
@@ -19,7 +19,7 @@
   },
   "entry": "artworks/flow-field/v1/sketch.js",
   "thumbnail": "artworks/flow-field/v1/thumbnail.svg",
-  "checksum": "c46dd01ff8df686ae7d20cefca1621c1960b23b6058f22f7baa99b046d581b7f",
+  "checksum": "de57589c94184b8f730be45b86d717ee61a8172adc2c6721f69c840482c6de97",
   "minimumRendererVersion": 1,
   "license": "MIT",
   "remix": true,
@@ -29,7 +29,9 @@
     "background": "#13252f"
   },
   "capabilities": [
-    "canvas2d"
+    "canvas2d",
+    "touch",
+    "tilt"
   ],
   "quality": {
     "low": 350,

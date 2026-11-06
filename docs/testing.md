@@ -12,12 +12,12 @@ iOS: generate the Xcode project, build for an iOS 17+ simulator, and test on a p
 
 Before publishing, run dependency auditing with the installed lockfile and review findings; no audit was run here. Publisher dry-run requires the built `dist` folder. Test uploads only against a staging bucket, interrupt a package upload to ensure no catalog commit, then perform rollback and compare catalog hashes. Publishing and rollback have not been exercised against Cloudflare.
 
-
 Appearance checks verify separate title/artwork bounds, wide canvas size, add/remove/reset color inputs, palette and theme persistence, mobile panel fit, and actual red/green/blue pixels in the paused Three.js canvas. Palette unit tests check interpolation through all stops and reject malformed or oversized bridge palettes. Both development and production browser runs passed. The p5 adapter unit check also verifies all supplied colors reach stroke calls.
-
 
 Viewport follow-up: the exhibition uses the current dynamic viewport height and gives the canvas the remaining space. A browser check verifies no horizontal or vertical page overflow at 1440x900, 1280x640, 390x844, 360x640 and 844x390, plus visible navigation/entry controls. The final 12-test development-server suite and production build passed. The preceding 11-test production-preview suite passed before this viewport-only adjustment.
 
-
 Expanded-player mobile checks: the 18-test browser suite passed, including handle taps, downward/upward drags, keyboard arrows, Escape/focus return, unchanged main controls, and New seed changing every slider and the palette. Saved moments restore the complete variation. The latest unit suite has 10 passing tests and content/adapter suite has 4. The production web build passes; native builds remain unrun.
 
+## Touch/tilt and code quality verification - 2026-11-05
+
+Passed locally: Prettier check, ESLint with zero warnings, 6 content/adapter tests, 15 unit tests, TypeScript/Vite production build, and all 30 Chromium browser tests against production preview. The browser suite covers mobile drag forwarding without artwork navigation, persisted interaction toggles, synthetic tilt calibration and strict CSP without eval violations. Production dependency audit reports zero vulnerabilities; 10 moderate development-tool advisories remain documented in docs/production.md. Real phone sensor behavior, Cloudflare response headers, native builds and deployment remain unverified.

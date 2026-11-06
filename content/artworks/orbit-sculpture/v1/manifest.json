@@ -19,7 +19,7 @@
   },
   "entry": "artworks/orbit-sculpture/v1/sketch.js",
   "thumbnail": "artworks/orbit-sculpture/v1/thumbnail.svg",
-  "checksum": "f29d0af8ce2a53f2ad21771318aa353aafb61868485fe2c3082233546f2cb1e5",
+  "checksum": "e60c1c1f85ecbae9e6903dce1461f3801bd58eaa0657d1cb9204a5efceea5486",
   "minimumRendererVersion": 1,
   "license": "MIT",
   "remix": true,

@@ -19,7 +19,7 @@ Open the local Vite URL. The React exhibition has a textured setting, oversized 
 
 Use **Works** for the complete name index, searchable by title, creator, tags, category and engine, with name/category sorting and saved favorites. Enter a work to change parameters, apply a preset, pause, generate a seed, export PNG, or enter fullscreen. Saved favorites and one custom preset per artwork live on this device.
 
-On the main page, artwork is composited transparently across the full page with no separate black/white canvas rectangle, and “ART IN” / “MOTION” sit at the lower corners of the stage. The header and bottom controls use subtle translucent surfaces for readability. **Expand artwork** opens the full player, which retains its opaque themed canvas. **Colors** lets you edit, add or remove up to eight colors; the renderer interpolates every selected shade across particles and sculpture rings. Dark/White mode changes the page surface and expanded canvas background and selects a separate saved palette for each mode: deeper colors on white, lighter colors on dark. Custom palettes and theme persist locally in this browser.
+On the main page, artwork is composited transparently across the full page with no separate black/white canvas rectangle, and “ART & SOUND” / “IN MOTION” sit at the lower corners of the stage. The header and bottom controls use subtle translucent surfaces for readability. **Expand artwork** opens the full player, which retains its opaque themed canvas. **Colors** lets you edit, add or remove up to eight colors; the renderer interpolates every selected shade across particles and sculpture rings. Dark/White mode changes the page surface and expanded canvas background and selects a separate saved palette for each mode: deeper colors on white, lighter colors on dark. Custom palettes and theme persist locally in this browser.
 
 Saved artworks are local bookmarks (artwork IDs), not downloaded artwork files or cloud projects. Favorites, numeric presets, palette and theme use localStorage for this site/browser profile. Clearing site data removes them; there is no cross-device synchronization.
 
@@ -55,16 +55,12 @@ Android/iOS application builds and device tests remain **unrun**; packaging nati
 
 See [architecture](docs/architecture.md), [milestones](docs/milestones.md), [test plan](docs/testing.md) and [Cloudflare setup](infrastructure/cloudflare/README.md).
 
-
-
-
-
 The current non-text color system follows the supplied ivory/gold/muted-blue reference. Text colors, copy and typography are unchanged. Title and artwork-detail reveals are staggered and respect reduced motion. New default palettes use the versioned browser key mg:palettes:v2; previous palettes are retained under their old key.
-
-
 
 The main-page live visualizer appears above MOTION. Click it to open the current music viewer without restarting audio, or use the adjacent shuffle button for another soundtrack. Surprise me selects another artwork on the main page or in the expanded player.
 
-
 React to music is on by default beside the main visualizer and in the expanded player. The current soundtrack modulates the artwork using smoothed bass/mid/treble energy. Toggle it off to restore normal motion while audio keeps playing. The preference persists locally; slider values are preserved, and muting, stopping, backgrounding or reduced motion neutralizes the reaction.
 
+Quiet Currents now supports eased touch and optional tilt in both views, on by default with a shared off switch. See [changelog](CHANGELOG.md) and [production readiness](docs/production.md).
+
+Code quality: `npm run format` applies Prettier; `npm run format:check` checks formatting; `npm run lint` checks JavaScript/TypeScript and React hook usage; `npm run lint:fix` applies safe automatic fixes. `npm run check` runs formatting, lint, content tests, unit tests and the web build. Formatting artwork code changes its checksum: regenerate unpublished demo manifests afterward, and never reformat a published version in place.

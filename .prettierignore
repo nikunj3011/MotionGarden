@@ -1,0 +1,14 @@
+node_modules/
+dist/
+outputs/
+test-results/
+playwright-report/
+releases/
+work/
+apps/android/
+apps/ios/
+package-lock.json
+content/catalog/
+content/artworks/**/manifest.json
+content/artworks/**/thumbnail.svg
+docs/original-specification.txt
