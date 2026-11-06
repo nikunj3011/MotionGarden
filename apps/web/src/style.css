@@ -1195,3 +1195,20 @@ h2 {
   display: inline-block;
   vertical-align: middle;
 }
+
+/* Rotate the first path (petals) around the bloom center; keep the stem still. */
+.wordmark > svg > path:first-child {
+  transform-box: view-box;
+  transform-origin: 12px 8px;
+  animation: garden-flower-turn 32s linear infinite;
+}
+@keyframes garden-flower-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wordmark > svg > path:first-child {
+    animation: none;
+  }
+}

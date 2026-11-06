@@ -196,10 +196,6 @@ export default function Works() {
           </Link>
         </div>
       </main>
-      <footer className="exhibition-footer">
-        <span>MOTIONGARDEN — ART, ALWAYS GROWING.</span>
-        <span>MADE OF MATH. MEANT TO BE FELT.</span>
-      </footer>
     </div>
   );
 }

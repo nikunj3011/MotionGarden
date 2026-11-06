@@ -13,9 +13,12 @@ export default function MusicVisual({ compact = false }: { compact?: boolean }) 
     let frame = 0,
       last = 0,
       width = 0,
-      height = 0;
+      height = 0,
+      contrastInk = '',
+      updateInk = true;
     const samples = new Uint8Array(128);
     const resize = () => {
+      updateInk = true;
       const ratio = Math.min(devicePixelRatio, 2);
       width = element.clientWidth;
       height = element.clientHeight;
@@ -30,6 +33,10 @@ export default function MusicVisual({ compact = false }: { compact?: boolean }) 
       frame = requestAnimationFrame(draw);
       if (document.hidden || !width || !height || now - last < 33) return;
       last = now;
+      if (updateInk) {
+        contrastInk = getComputedStyle(element).getPropertyValue('--music-visual-ink').trim();
+        updateInk = false;
+      }
       ctx.clearRect(0, 0, width, height);
       const engine = sound.engine();
       engine?.analyser?.getByteFrequencyData(samples);
@@ -44,7 +51,7 @@ export default function MusicVisual({ compact = false }: { compact?: boolean }) 
         segments = compact ? 90 : 180;
       for (let ring = 0; ring < rings; ring++) {
         ctx.beginPath();
-        ctx.strokeStyle = colors[ring % colors.length];
+        ctx.strokeStyle = contrastInk || colors[ring % colors.length];
         ctx.globalAlpha = 0.4 + energy * 0.5;
         ctx.lineWidth = compact ? 0.8 : 1;
         for (let n = 0; n <= segments; n++) {

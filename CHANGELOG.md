@@ -55,3 +55,17 @@ These describe repository changes, not deployed releases. Android/iOS shells exi
 - Add stronger mobile music-panel blur and a soft, low-opacity live music visualization behind its controls.
 
 - Add a consistent SVG Home button to the expanded artwork and music viewers, returning directly to the main gallery.
+
+- Refine mobile music with a more transparent glass surface, softer background visualization, clearer typography and a visible music-reaction switch.
+
+- Add a slow CSS rotation to the flower logo, disabled for reduced-motion preferences.
+
+- Rotate only the logo petals; the center, stem and leaves stay still.
+
+- Remove mobile music-panel and visualization blur while retaining the transparent surface.
+
+- Give the mobile music panel explicit light/dark foreground colors, stronger control outlines and a theme-aware background visualizer that remains visible with any artwork palette.
+
+- Remove gallery/Works footer content and make the phone gallery bottom bar transparent in both themes.
+
+- Extend the transparent bottom bar and theme-aware, unblurred main music UI to desktop.

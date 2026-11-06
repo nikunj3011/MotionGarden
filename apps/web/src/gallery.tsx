@@ -1,15 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  ArrowDown,
-  ArrowLeft,
-  ArrowRight,
-  ArrowUpRight,
-  Heart,
-  MoveUpRight,
-  Maximize2,
-  Dices,
-} from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, Heart, Maximize2, Dices } from 'lucide-react';
 import { useCatalog, useFavorites } from './catalog';
 import { Filters, Header } from './shell';
 import { useArtworkColors } from './preferences';
@@ -340,17 +331,6 @@ export default function Gallery() {
           </p>
         )}
       </main>
-      <footer className="exhibition-footer">
-        <span>
-          <span className="live-dot" /> NO TWO MOMENTS ALIKE
-        </span>
-        <Link to="/works">
-          ALL WORKS, A TO Z <MoveUpRight size={12} />
-        </Link>
-        <span>
-          TAKE YOUR TIME <ArrowDown size={11} />
-        </span>
-      </footer>
     </div>
   );
 }

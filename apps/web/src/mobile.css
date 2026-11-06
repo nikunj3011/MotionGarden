@@ -1,16 +1,43 @@
 /* Phone music controls use a quiet, compact layout with one clear hierarchy. */
 @media (max-width: 650px) {
   .explore-page .soundtrack-panel.now-playing.inline-music-viewer[data-variant='main'] {
+    --music-ink: #203e49;
+    --music-muted: #465f67;
+    --music-accent: #315f6b;
+    --music-visual-ink: #315f6b;
+    color: var(--music-ink);
+
     max-width: 190px;
-    padding: 10px 10px 7px;
-    border-radius: 12px;
-    background: color-mix(in srgb, var(--paper) 46%, transparent);
-    border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
-    box-shadow: none;
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    padding: 12px 11px 8px;
+    border-radius: 15px;
+    background: linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--paper) 30%, transparent),
+      color-mix(in srgb, var(--paper) 16%, transparent)
+    );
+    border: 1px solid color-mix(in srgb, var(--music-ink) 22%, transparent);
+    box-shadow: inset 0 1px color-mix(in srgb, var(--paper) 26%, transparent);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     overflow: hidden;
     isolation: isolate;
+  }
+  [data-theme='dark']
+    .explore-page
+    .soundtrack-panel.now-playing.inline-music-viewer[data-variant='main'] {
+    --music-ink: #f1eadc;
+    --music-muted: #c1ced0;
+    --music-accent: #e2cb87;
+    --music-visual-ink: #b7d3da;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'] .now-playing-link,
+  .explore-page .soundtrack-panel[data-variant='main'] .soundtrack-controls > button,
+  .explore-page .soundtrack-panel[data-variant='main'] .music-panel-size {
+    color: var(--music-ink);
+  }
+  .explore-page .soundtrack-panel[data-variant='main'] .now-playing-caption small,
+  .explore-page .soundtrack-panel[data-variant='main'] .soundtrack-meta {
+    color: var(--music-muted);
   }
   .explore-page .soundtrack-panel[data-variant='main'] .inline-music-preview {
     display: block;
@@ -21,14 +48,14 @@
     border: 0;
     border-radius: inherit;
     background: transparent;
-    opacity: 0.3;
+    opacity: 0.28;
     pointer-events: none;
     z-index: 0;
   }
   .explore-page .soundtrack-panel[data-variant='main'] .inline-music-preview canvas {
     width: 120%;
     height: 140%;
-    filter: blur(2px);
+    filter: none;
   }
   .explore-page
     .soundtrack-panel[data-variant='main'][data-size='minimized']
@@ -47,16 +74,16 @@
     gap: 5px;
   }
   .explore-page .soundtrack-panel[data-variant='main'] .now-playing-caption small {
-    font-size: 6px;
-    letter-spacing: 0.7px;
-    opacity: 0.65;
+    font-size: 7px;
+    letter-spacing: 0.8px;
+    opacity: 1;
   }
   .explore-page .soundtrack-panel[data-variant='main'] .now-playing-caption small i {
     width: 3px;
     height: 3px;
   }
   .explore-page .soundtrack-panel[data-variant='main'] .now-playing-caption strong {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     letter-spacing: -0.25px;
     line-height: 1.25;
@@ -75,12 +102,12 @@
     height: 28px;
     padding: 7px;
     border-radius: 5px;
-    opacity: 0.65;
+    opacity: 1;
   }
   .explore-page .soundtrack-panel[data-variant='main'] .soundtrack-spectrum {
     height: 10px;
     margin: 7px 0 4px;
-    opacity: 0.5;
+    opacity: 0.85;
   }
   .explore-page .soundtrack-panel[data-variant='main'] .soundtrack-controls {
     display: grid;
@@ -95,8 +122,8 @@
     display: flex;
     grid-column: span 1;
     width: 100%;
-    height: 34px;
-    min-height: 34px;
+    height: 38px;
+    min-height: 38px;
     margin: 0;
     padding: 8px;
     justify-content: center;
@@ -135,7 +162,7 @@
     margin-top: 2px;
     padding: 6px 1px;
     border: 0;
-    border-top: 1px solid var(--line);
+    border-top: 1px solid color-mix(in srgb, var(--music-ink) 18%, transparent);
     border-radius: 0;
     background: transparent;
     font-size: 9px;
@@ -150,29 +177,54 @@
     opacity: 0.7;
   }
   .explore-page .soundtrack-panel[data-variant='main'] .react-to-music small {
+    position: relative;
     margin-left: auto;
+    padding-right: 26px;
     font-size: 7px;
-    opacity: 0.65;
-  }
-  .explore-page .soundtrack-panel[data-variant='main'] .react-to-music[aria-pressed='true'] small {
-    opacity: 1;
+    opacity: 0.7;
   }
   .explore-page .soundtrack-panel[data-variant='main'] .react-to-music small:before {
     content: '';
-    display: inline-block;
-    width: 4px;
-    height: 4px;
-    margin-right: 4px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 11px;
+    margin: 0;
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--music-ink) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--music-ink) 35%, transparent);
+    opacity: 1;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'] .react-to-music small:after {
+    content: '';
+    position: absolute;
+    right: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: currentColor;
-    opacity: 0.35;
-    vertical-align: middle;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'] .react-to-music[aria-pressed='true'] small {
+    opacity: 1;
   }
   .explore-page
     .soundtrack-panel[data-variant='main']
     .react-to-music[aria-pressed='true']
     small:before {
-    opacity: 1;
+    background: color-mix(in srgb, var(--music-accent) 48%, transparent);
+  }
+  .explore-page
+    .soundtrack-panel[data-variant='main']
+    .react-to-music[aria-pressed='true']
+    small:after {
+    right: 3px;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'] .soundtrack-controls > button:active {
+    background: color-mix(in srgb, var(--ink) 8%, transparent);
   }
   .explore-page .soundtrack-panel[data-variant='main'][data-size='minimized'] .soundtrack-top {
     min-height: 0;
@@ -208,6 +260,10 @@
     gap: 4px;
   }
   .explore-page .exhibition-bottom {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
     padding: 6px 0;
     gap: 5px 8px;
   }
@@ -251,8 +307,9 @@
     width: 18px;
     height: 18px;
   }
-  .explore-page .exhibition-footer {
-    padding-top: 5px;
-    padding-bottom: 5px;
+  [data-theme='dark'] .explore-page .exhibition-bottom {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 }

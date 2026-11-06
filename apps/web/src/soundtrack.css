@@ -776,3 +776,27 @@
 .oversized-type span:last-child {
   font-size: 0.72em;
 }
+
+/* Shared, theme-aware foregrounds for the main music card on desktop and phone. */
+.soundtrack-panel.now-playing.inline-music-viewer[data-variant='main'] {
+  --music-ink: #203e49;
+  --music-muted: #465f67;
+  --music-visual-ink: #315f6b;
+  color: var(--music-ink);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+[data-theme='dark'] .soundtrack-panel.now-playing.inline-music-viewer[data-variant='main'] {
+  --music-ink: #f1eadc;
+  --music-muted: #c1ced0;
+  --music-visual-ink: #b7d3da;
+}
+.soundtrack-panel[data-variant='main'] .now-playing-link,
+.soundtrack-panel[data-variant='main'] .soundtrack-controls > button,
+.soundtrack-panel[data-variant='main'] .music-panel-size {
+  color: var(--music-ink);
+}
+.soundtrack-panel[data-variant='main'] .now-playing-caption small,
+.soundtrack-panel[data-variant='main'] .soundtrack-meta {
+  color: var(--music-muted);
+}

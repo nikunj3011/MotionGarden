@@ -941,3 +941,12 @@ select:focus-visible,
     bottom: calc(10px + max(var(--motion-size), 80px) + 14px);
   }
 }
+
+/* Keep the artwork visible behind the bottom controls at every viewport size. */
+.explore-page .exhibition-bottom,
+[data-theme='dark'] .explore-page .exhibition-bottom {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
