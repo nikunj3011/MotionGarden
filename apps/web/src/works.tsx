@@ -47,7 +47,10 @@ export default function Works() {
               {String(music ? musicPieces.length : items.length).padStart(2, '0')} ORIGINAL WORKS
             </span>
             <h1>
-              WORKS<span>↗</span>
+              WORKS
+              <span>
+                <ArrowUpRight size="1em" aria-hidden="true" />
+              </span>
             </h1>
           </div>
           <p>

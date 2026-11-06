@@ -155,7 +155,7 @@ export default function Gallery() {
             <iframe
               ref={frame}
               title={`Preview of ${active.title}`}
-              src={`${import.meta.env.BASE_URL}renderer/v1/index.html?id=${encodeURIComponent(active.id)}&surface=transparent`}
+              src={`${import.meta.env.BASE_URL}renderer/v1/index.html?id=${encodeURIComponent(active.id)}&surface=transparent&build=${import.meta.env.VITE_RENDERER_REVISION}`}
               sandbox="allow-scripts allow-same-origin"
               tabIndex={-1}
             />
@@ -247,7 +247,10 @@ export default function Gallery() {
           )}
           {error && (
             <div className="stage-message" role="alert">
-              The garden couldn’t load.<button onClick={() => refetch()}>Try again ↗</button>
+              The garden couldn’t load.
+              <button onClick={() => refetch()}>
+                Try again <ArrowUpRight size={14} aria-hidden="true" />
+              </button>
             </div>
           )}
           {!isPending && !error && !active && (
@@ -255,7 +258,9 @@ export default function Gallery() {
               {category === 'Saved'
                 ? 'Your collection starts with a little love. Save a work with the heart.'
                 : 'No works in this view yet.'}
-              <button onClick={() => filter('All')}>Explore all works ↗</button>
+              <button onClick={() => filter('All')}>
+                Explore all works <ArrowUpRight size={14} aria-hidden="true" />
+              </button>
             </div>
           )}
           <div className="stage-caption">
@@ -284,7 +289,21 @@ export default function Gallery() {
                 <ArrowLeft size={19} />
               </button>
               <span className="orbit-dial" aria-hidden="true">
-                <span style={{ transform: `rotate(${index * 180}deg)` }}>✳</span>
+                <span style={{ transform: `rotate(${index * 180}deg)` }}>
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    height="1em"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.4"
+                    strokeLinecap="round"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93" />
+                  </svg>
+                </span>
               </span>
               <button
                 aria-label="Next artwork"

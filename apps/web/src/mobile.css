@@ -1,0 +1,258 @@
+/* Phone music controls use a quiet, compact layout with one clear hierarchy. */
+@media (max-width: 650px) {
+  .explore-page .soundtrack-panel.now-playing.inline-music-viewer[data-variant='main'] {
+    max-width: 190px;
+    padding: 10px 10px 7px;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--paper) 46%, transparent);
+    border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+    box-shadow: none;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'] .inline-music-preview {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: inherit;
+    background: transparent;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'] .inline-music-preview canvas {
+    width: 120%;
+    height: 140%;
+    filter: blur(2px);
+  }
+  .explore-page
+    .soundtrack-panel[data-variant='main'][data-size='minimized']
+    .inline-music-preview {
+    display: none;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'] .soundtrack-top {
+    min-height: 0;
+    padding-right: 23px;
+    gap: 0;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'] .inline-music-details {
+    padding: 0;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'] .now-playing-caption {
+    gap: 5px;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'] .now-playing-caption small {
+    font-size: 6px;
+    letter-spacing: 0.7px;
+    opacity: 0.65;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'] .now-playing-caption small i {
+    width: 3px;
+    height: 3px;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'] .now-playing-caption strong {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.25px;
+    line-height: 1.25;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'] .soundtrack-meta {
+    display: none;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'] .music-panel-size {
+    top: 8px;
+    right: 6px;
+    width: 28px;
+    height: 28px;
+    padding: 7px;
+    border-radius: 5px;
+    opacity: 0.65;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'] .soundtrack-spectrum {
+    height: 10px;
+    margin: 7px 0 4px;
+    opacity: 0.5;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'] .soundtrack-controls {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    align-items: center;
+  }
+  .explore-page
+    .soundtrack-panel[data-variant='main']
+    .soundtrack-controls
+    > button:not(.react-to-music) {
+    display: flex;
+    grid-column: span 1;
+    width: 100%;
+    height: 34px;
+    min-height: 34px;
+    margin: 0;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 0;
+    border: 0;
+    border-radius: 5px;
+    background: transparent;
+  }
+  .explore-page
+    .soundtrack-panel[data-variant='main']
+    .soundtrack-controls
+    > button:not(.react-to-music)
+    svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 1.6;
+    flex-shrink: 0;
+  }
+  .explore-page
+    .soundtrack-panel[data-variant='main']
+    .soundtrack-controls
+    > button
+    .music-action-label {
+    display: none;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'] .soundtrack-controls > .react-to-music {
+    grid-column: 1/-1;
+    display: flex;
+    width: 100%;
+    height: 30px;
+    min-height: 30px;
+    justify-content: flex-start;
+    gap: 7px;
+    margin-top: 2px;
+    padding: 6px 1px;
+    border: 0;
+    border-top: 1px solid var(--line);
+    border-radius: 0;
+    background: transparent;
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'] .react-to-music svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'] .react-to-music small {
+    margin-left: auto;
+    font-size: 7px;
+    opacity: 0.65;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'] .react-to-music[aria-pressed='true'] small {
+    opacity: 1;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'] .react-to-music small:before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    margin-right: 4px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.35;
+    vertical-align: middle;
+  }
+  .explore-page
+    .soundtrack-panel[data-variant='main']
+    .react-to-music[aria-pressed='true']
+    small:before {
+    opacity: 1;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'][data-size='minimized'] .soundtrack-top {
+    min-height: 0;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'][data-size='minimized'] .soundtrack-spectrum {
+    height: 6px;
+    margin: 6px 0 2px;
+  }
+  .explore-page .soundtrack-panel[data-variant='main'][data-size='minimized'] .soundtrack-controls {
+    grid-template-columns: 30px minmax(0, 1fr);
+  }
+  .explore-page
+    .soundtrack-panel[data-variant='main'][data-size='minimized']
+    .soundtrack-controls
+    > button:nth-child(-n + 2) {
+    display: none;
+  }
+  .explore-page
+    .soundtrack-panel[data-variant='main'][data-size='minimized']
+    .soundtrack-controls
+    > button:nth-child(3) {
+    width: 30px;
+  }
+  .explore-page
+    .soundtrack-panel[data-variant='main'][data-size='minimized']
+    .soundtrack-controls
+    > .react-to-music {
+    grid-column: 2;
+    margin: 0;
+    border: 0;
+    padding-left: 4px;
+    font-size: 8px;
+    gap: 4px;
+  }
+  .explore-page .exhibition-bottom {
+    padding: 6px 0;
+    gap: 5px 8px;
+  }
+  .explore-page .work-description h1 {
+    font-size: 18px;
+    line-height: 1.15;
+    margin: 3px 0 0;
+  }
+  .explore-page .work-description .micro-label {
+    font-size: 6px;
+    letter-spacing: 0.6px;
+  }
+  .explore-page .orbit-navigation > div {
+    gap: 6px;
+  }
+  .explore-page .orbit-navigation button {
+    width: 34px;
+    height: 34px;
+  }
+  .explore-page .orbit-dial {
+    width: 30px;
+    height: 30px;
+  }
+  .explore-page .orbit-dial > span {
+    font-size: 21px;
+  }
+  .explore-page .work-actions {
+    gap: 7px;
+  }
+  .explore-page .save-work {
+    width: 34px;
+    height: 34px;
+  }
+  .explore-page .enter-work {
+    padding: 9px 13px;
+    gap: 14px;
+    font-size: 10px;
+    min-height: 36px;
+  }
+  .explore-page .enter-work > svg {
+    width: 18px;
+    height: 18px;
+  }
+  .explore-page .exhibition-footer {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+}

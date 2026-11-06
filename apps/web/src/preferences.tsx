@@ -1,3 +1,4 @@
+import { sendRenderer } from './renderer-bridge';
 import {
   createContext,
   useContext,
@@ -75,15 +76,16 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
 export function useArtworkColors(frame: RefObject<HTMLIFrameElement | null>, id?: string) {
   const { colors, theme } = useContext(Preferences);
   useEffect(() => {
+    const target = frame.current?.contentWindow;
     const send = () => {
-      frame.current?.contentWindow?.postMessage({ type: 'SET_THEME', theme }, location.origin);
-      frame.current?.contentWindow?.postMessage({ type: 'SET_PALETTE', colors }, location.origin);
+      sendRenderer(target, { type: 'SET_THEME', theme });
+      sendRenderer(target, { type: 'SET_PALETTE', colors });
     };
     send();
     const ready = (event: MessageEvent) => {
       if (
         event.origin === location.origin &&
-        event.source === frame.current?.contentWindow &&
+        event.source === target &&
         event.data?.type === 'READY'
       )
         send();

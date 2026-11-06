@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useSound, musicPieces } from './sound';
-import { Shuffle } from 'lucide-react';
+import { Shuffle, ArrowUpRight } from 'lucide-react';
 import { ReactToMusicControl } from './audio-reaction';
 import { useAppearance } from './preferences';
 
@@ -66,7 +66,7 @@ export default function NowPlaying() {
             {sound.playing ? (sound.muted ? 'MUTED' : 'NOW PLAYING') : 'READY TO LISTEN'}
           </small>
           <strong>{sound.piece.title}</strong>
-          <span aria-hidden="true">↗</span>
+          <ArrowUpRight size={12} aria-hidden="true" />
         </span>
         <canvas ref={canvas} aria-hidden="true" />
       </Link>

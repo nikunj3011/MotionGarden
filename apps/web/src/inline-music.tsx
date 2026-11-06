@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Play, Square, RotateCw } from 'lucide-react';
+import { Play, Square, RotateCw, ArrowUpRight } from 'lucide-react';
 import { useSound } from './sound';
 import MusicVisual from './music-visual';
 export default function InlineMusic() {
@@ -21,7 +21,9 @@ export default function InlineMusic() {
         <small>
           {sound.piece.style.toUpperCase()} / {sound.piece.bpm} BPM
         </small>
-        <Link to={`/music/${sound.piece.id}`}>{sound.piece.title} ↗</Link>
+        <Link to={`/music/${sound.piece.id}`}>
+          {sound.piece.title} <ArrowUpRight size={12} aria-hidden="true" />
+        </Link>
         <div className="inline-music-actions">
           <button
             data-sound-control

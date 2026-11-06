@@ -44,7 +44,14 @@ async function start(id: string) {
 async function dispatch(input: unknown) {
   const parsed = commandSchema.safeParse(input);
   if (!parsed.success) {
-    reply({ type: 'ERROR', message: 'Invalid renderer command' });
+    reply({
+      type: 'ERROR',
+      message:
+        'Invalid renderer command: ' +
+        parsed.error.issues
+          .map((issue) => `${issue.path.join('.') || 'command'} ${issue.message}`)
+          .join('; '),
+    });
     return;
   }
   const message = parsed.data;
@@ -96,7 +103,10 @@ async function dispatch(input: unknown) {
   }
 }
 window.addEventListener('message', (event) => {
-  if (event.origin === location.origin && event.source === parent) void dispatch(event.data);
+  if (event.origin !== location.origin || event.source !== parent) return;
+  const envelope = event.data;
+  if (!envelope || envelope.channel !== 'motiongarden:renderer' || envelope.version !== 1) return;
+  void dispatch(envelope.command);
 });
 Object.defineProperty(window, 'MotionGarden', {
   value: Object.freeze({ dispatch }),

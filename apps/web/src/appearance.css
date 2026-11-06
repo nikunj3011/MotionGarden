@@ -1516,3 +1516,30 @@
   border: 2px solid var(--panel);
   box-shadow: 0 0 0 1px #9f7bc766;
 }
+
+/* The same home destination is always available in both immersive viewers. */
+.player-top > a.viewer-home,
+.music-top a.viewer-home {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 38px;
+  width: 38px;
+  min-width: 38px;
+  height: 38px;
+  min-height: 38px;
+  padding: 9px;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--paper) 64%, transparent);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  text-decoration: none;
+}
+.viewer-home svg {
+  display: block;
+  flex-shrink: 0;
+}
+.viewer-home:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}

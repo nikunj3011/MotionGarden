@@ -1,15 +1,7 @@
+import { sendRenderer } from './renderer-bridge';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import {
-  ArrowLeft,
-  Pause,
-  Play,
-  RotateCcw,
-  Shuffle,
-  Download,
-  Maximize,
-  EyeOff,
-} from 'lucide-react';
+import { House, Pause, Play, RotateCcw, Shuffle, Download, Maximize, EyeOff } from 'lucide-react';
 import { useCatalog } from './catalog';
 import { AppearanceControls, useArtworkColors, useAppearance, defaultColors } from './preferences';
 import BottomSheet from './bottom-sheet';
@@ -34,8 +26,7 @@ function ArtworkPlayer() {
   const interaction = useArtInteraction(frame, id);
   useArtworkColors(frame, id);
   useArtworkAudio(frame, id);
-  const send = (message: unknown) =>
-    frame.current?.contentWindow?.postMessage(message, location.origin);
+  const send = (message: unknown) => sendRenderer(frame.current?.contentWindow, message);
   useEffect(() => {
     if (manifest) setValues(Object.fromEntries(manifest.parameters.map((p) => [p.key, p.default])));
   }, [manifest]);
@@ -77,14 +68,13 @@ function ArtworkPlayer() {
       <iframe
         ref={frame}
         title={manifest?.title || 'Artwork'}
-        src={`${import.meta.env.BASE_URL}renderer/v1/index.html?id=${encodeURIComponent(id || '')}`}
+        src={`${import.meta.env.BASE_URL}renderer/v1/index.html?id=${encodeURIComponent(id || '')}&build=${import.meta.env.VITE_RENDERER_REVISION}`}
         sandbox="allow-scripts allow-same-origin"
         allow="fullscreen"
       />
       <div className="player-top">
-        <Link to="/" aria-label="Back to garden">
-          <ArrowLeft size={18} />
-          <span className="player-back-label">Back to garden</span>
+        <Link to="/" className="viewer-home" aria-label="Home" title="Back to the garden">
+          <House size={18} aria-hidden="true" />
         </Link>
         <AppearanceControls />
         <SoundControl />

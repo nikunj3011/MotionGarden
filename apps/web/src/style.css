@@ -499,7 +499,7 @@ h2 {
 }
 .index-heading h1 {
   font-family: var(--display);
-  font-size: clamp(110px, 18vw, 270px);
+  font-size: clamp(52px, 8vw, 112px);
   letter-spacing: -0.035em;
   font-weight: 400;
   line-height: 1.06;
@@ -1067,7 +1067,7 @@ h2 {
     align-items: start;
   }
   .index-heading h1 {
-    font-size: 25vw;
+    font-size: clamp(38px, 12vw, 64px);
     margin: 15px 0;
   }
   .index-heading h1 > span {
@@ -1180,4 +1180,18 @@ h2 {
   .artwork-orb.departing {
     display: none;
   }
+}
+
+/* SVG navigation marks stay monochrome and retain their shape on mobile. */
+.orbit-dial > span {
+  display: grid;
+  place-items: center;
+}
+.orbit-dial svg {
+  display: block;
+  flex-shrink: 0;
+}
+.index-heading h1 > span > svg {
+  display: inline-block;
+  vertical-align: middle;
 }

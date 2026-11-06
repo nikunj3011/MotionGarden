@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, HashRouter, Routes, Route, Link } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ArrowUpRight } from 'lucide-react';
 import Gallery from './gallery';
 import Works from './works';
 import './style.css';
@@ -9,6 +10,7 @@ import './appearance.css';
 import './chromatic.css';
 import './soundtrack.css';
 import './interaction.css';
+import './mobile.css';
 import { RecoveryBoundary } from './recovery';
 import { PreferencesProvider } from './preferences';
 import { SoundProvider, loadMusicCatalog } from './sound';
@@ -46,7 +48,9 @@ function renderGarden() {
                       element={
                         <main className="not-found">
                           <h1>A little off the path.</h1>
-                          <Link to="/">Back to the garden ↗</Link>
+                          <Link to="/">
+                            Back to the garden <ArrowUpRight size={16} aria-hidden="true" />
+                          </Link>
                         </main>
                       }
                     />

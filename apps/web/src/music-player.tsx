@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { Play, Square, Shuffle, ArrowLeft } from 'lucide-react';
+import { Play, Square, Shuffle, ArrowLeft, ArrowUpRight, House } from 'lucide-react';
 import { musicPieces, useSound, SoundControl } from './sound';
 import { AppearanceControls } from './preferences';
 import MusicVisual from './music-visual';
@@ -27,6 +27,9 @@ export default function MusicPlayer() {
           <ArrowLeft size={16} /> Music works
         </Link>
         <div>
+          <Link to="/" className="viewer-home" aria-label="Home" title="Back to the garden">
+            <House size={18} aria-hidden="true" />
+          </Link>
           <AppearanceControls />
           <SoundControl />
         </div>
@@ -60,7 +63,7 @@ export default function MusicPlayer() {
               navigate(`/music/${next.id}`);
             }}
           >
-            Random piece ↗
+            Random piece <ArrowUpRight size={16} aria-hidden="true" />
           </button>
         </div>
         <p className="music-status" role="status">

@@ -41,3 +41,17 @@ These describe repository changes, not deployed releases. Android/iOS shells exi
 - Build/check pull requests; publish main through the Pages artifact and deployment actions.
 - Use the configured Pages base path for artwork, thumbnails and music, with refreshable hash routes.
 - Keep local development and native packaging behavior separate from Pages deployment.
+
+- Replace the rotating gallery star and remaining text arrows with monochrome SVG icons for consistent phone rendering.
+
+- Isolate iframe artwork commands with a versioned message channel and bind cleanup messages to their original renderer window, preventing unrelated page messages from producing navigation errors. Native direct dispatch retains schema validation.
+
+- Tag renderer frame URLs with the build revision so a newly deployed app cannot reuse an older cached renderer HTML entrypoint.
+
+- Make the main-page music panel and bottom artwork/navigation bar more compact on phones, preserving desktop and expanded-view sizing.
+
+- Redesign the mobile main-page music card with readable track typography, a restrained spectrum, flat icon controls and a separated music-reaction row. Remove the oversized background visualization on phones. Desktop and the full music viewer retain their visuals.
+
+- Add stronger mobile music-panel blur and a soft, low-opacity live music visualization behind its controls.
+
+- Add a consistent SVG Home button to the expanded artwork and music viewers, returning directly to the main gallery.

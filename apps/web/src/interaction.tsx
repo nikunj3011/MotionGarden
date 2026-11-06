@@ -1,3 +1,4 @@
+import { sendRenderer } from './renderer-bridge';
 import { useEffect, useState, type RefObject } from 'react';
 import { Hand, Smartphone } from 'lucide-react';
 const key = 'mg:interaction';
@@ -59,8 +60,8 @@ export function useArtInteraction(
   }
   useEffect(() => {
     if (id !== 'flow-field') return;
-    const send = (data: unknown) =>
-        frame.current?.contentWindow?.postMessage(data, location.origin),
+    const target = frame.current?.contentWindow;
+    const send = (data: unknown) => sendRenderer(target, data),
       reduced = matchMedia('(prefers-reduced-motion: reduce)');
     let pointer = { x: 0, y: 0, strength: 0 },
       gravity = { x: 0, y: 0 },
@@ -81,11 +82,7 @@ export function useArtInteraction(
       publish();
     };
     const ready = (e: MessageEvent) => {
-      if (
-        e.origin === location.origin &&
-        e.source === frame.current?.contentWindow &&
-        e.data?.type === 'READY'
-      )
+      if (e.origin === location.origin && e.source === target && e.data?.type === 'READY')
         publish();
     };
     const orient = (e: DeviceOrientationEvent) => {

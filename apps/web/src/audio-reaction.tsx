@@ -1,3 +1,4 @@
+import { sendRenderer } from './renderer-bridge';
 import { useEffect, type RefObject } from 'react';
 import { AudioWaveform } from 'lucide-react';
 import { useSound } from './sound';
@@ -27,13 +28,10 @@ export function ReactToMusicControl() {
 export function useArtworkAudio(frame: RefObject<HTMLIFrameElement | null>, id?: string) {
   const sound = useSound();
   useEffect(() => {
+    const target = frame.current?.contentWindow;
     let bands: AudioBands = { ...silentBands };
     const media = matchMedia('(prefers-reduced-motion: reduce)');
-    const send = (values: AudioBands) =>
-      frame.current?.contentWindow?.postMessage(
-        { type: 'SET_AUDIO', bands: values },
-        location.origin,
-      );
+    const send = (values: AudioBands) => sendRenderer(target, { type: 'SET_AUDIO', bands: values });
     const sample = () => {
       if (!sound.reactive || !sound.playing || sound.muted || document.hidden || media.matches) {
         bands = { ...silentBands };
@@ -58,7 +56,7 @@ export function useArtworkAudio(frame: RefObject<HTMLIFrameElement | null>, id?:
     const ready = (event: MessageEvent) => {
       if (
         event.origin === location.origin &&
-        event.source === frame.current?.contentWindow &&
+        event.source === target &&
         event.data?.type === 'READY'
       )
         sample();
