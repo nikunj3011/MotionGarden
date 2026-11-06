@@ -28,11 +28,7 @@ On mobile, **only the expanded artwork player** uses a draggable bottom sheet. I
 **New seed** creates a complete variation: a different seed, motion, intensity and a new palette appropriate to the current theme. Sliders visibly update and remain within their declared ranges/steps. Paused artwork also refreshes. Save/restore now includes the palette alongside numeric parameters, with support for older numeric-only saved presets.
 
 ```sh
-npm run test:content
-npm test
 npm run build
-npx playwright install chromium
-npm run test:ui
 ```
 
 `build` type-checks the web/shared TypeScript and builds both HTML entrypoints. It only updates the web distribution. The current design iteration is React-first: native UI and packaged assets are intentionally left alone until the web experience is settled. Later, `npm run package:native` explicitly copies the built renderer/assets/catalog/artwork bundle to both mobile projects. Neither command builds a native app. Do not regenerate an already published version: the demo content generator is for unpublished development only.
@@ -47,13 +43,11 @@ Native clients currently provide a native list, navigation, player, parameter sl
 
 ## Verification status
 
-Executed successfully: `npm run test:content` (5 tests), `node tools/validate.mjs` (2 valid packages), `npm test` (15 tests), and `npm run build` (TypeScript and production Vite build; no native packaging in the React iteration). Chromium browser tests passed (24 tests) against the development server, including viewport fitting and actual artwork background changes. The earlier 11-test suite also passed against production preview before the final viewport adjustment. The production build reports large vendor-chunk warnings for p5 and Three.js.
-
-The p5 adapter uses the official minified distribution to avoid the development build's eval-based sketch reader. It predeclares the legacy regenerator global so that shim does not use a Function() fallback. The renderer retains `script-src 'self'` without `unsafe-eval`. Regression tests listen for actual CSP violations and require READY plus a visible canvas. To test the production build in PowerShell: `$env:MOTIONGARDEN_TEST_PREVIEW='1'; npm run test:ui`.
+Current checks: Prettier, ESLint, TypeScript and the production Vite build pass. Test files and tooling were removed at the owner's request; earlier test results are historical. The renderer retains strict CSP without unsafe-eval. The build still reports large p5/Three.js vendor chunks.
 
 Android/iOS application builds and device tests remain **unrun**; packaging native assets is not a native build. No Cloudflare deployment occurred. Initial dependency-install failures were resolved before this follow-up verification. The repository now includes a dependency lockfile.
 
-See [architecture](docs/architecture.md), [milestones](docs/milestones.md), [test plan](docs/testing.md) and [Cloudflare setup](infrastructure/cloudflare/README.md).
+See [architecture](docs/architecture.md), [milestones](docs/milestones.md) and [Cloudflare setup](infrastructure/cloudflare/README.md).
 
 The current non-text color system follows the supplied ivory/gold/muted-blue reference. Text colors, copy and typography are unchanged. Title and artwork-detail reveals are staggered and respect reduced motion. New default palettes use the versioned browser key mg:palettes:v2; previous palettes are retained under their old key.
 
@@ -63,4 +57,10 @@ React to music is on by default beside the main visualizer and in the expanded p
 
 Quiet Currents now supports eased touch and optional tilt in both views, on by default with a shared off switch. See [changelog](CHANGELOG.md) and [production readiness](docs/production.md).
 
-Code quality: `npm run format` applies Prettier; `npm run format:check` checks formatting; `npm run lint` checks JavaScript/TypeScript and React hook usage; `npm run lint:fix` applies safe automatic fixes. `npm run check` runs formatting, lint, content tests, unit tests and the web build. Formatting artwork code changes its checksum: regenerate unpublished demo manifests afterward, and never reformat a published version in place.
+Code quality: `npm run format` applies Prettier; `npm run format:check` checks formatting; `npm run lint` checks JavaScript/TypeScript and React hook usage; `npm run lint:fix` applies safe automatic fixes. `npm run check` runs formatting, lint and the web build. Formatting artwork code changes its checksum: regenerate unpublished demo manifests afterward, and never reformat a published version in place.
+
+Tests, browser captures and output folders were removed at the owner’s request. Earlier verification entries are historical records; the current checkout retains formatting, lint, content validation and build commands. The music catalog is loaded from its public URL rather than imported into JavaScript.
+
+## GitHub Pages
+
+Select GitHub Actions in repository Settings -> Pages. Push to main to run checks and deploy the built website. See [Pages setup](docs/github-pages.md) for routing and repository-path details.

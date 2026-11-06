@@ -129,7 +129,19 @@ export default function Works() {
                   <article className="index-row" key={art.id}>
                     <span className="row-number">{String(i + 1).padStart(2, '0')}</span>
                     <Link className="index-title" to={`/art/${art.id}`}>
-                      <img src={art.thumbnail} alt="" loading="lazy" />
+                      <img
+                        src={
+                          new URL(
+                            art.thumbnail,
+                            new URL(
+                              import.meta.env.VITE_CONTENT_BASE_URL || import.meta.env.BASE_URL,
+                              location.href,
+                            ),
+                          ).href
+                        }
+                        alt=""
+                        loading="lazy"
+                      />
                       <span>
                         <h2>{art.title}</h2>
                         <small>{art.creator.name}</small>

@@ -5,7 +5,7 @@
 - Strict script CSP without unsafe-eval, artwork integrity checks and validated same-origin renderer commands.
 - Cloudflare Pages `_headers`: content-type protection, referrer privacy, self-only sensors, CSP and cache rules. Renderer framing is restricted to the same origin.
 - App recovery screen, artwork retry, interaction toggles, reduced-motion handling and background suspension.
-- Reproducible CI install, content/unit checks, web build and browser tests against production preview.
+- Reproducible CI install, formatting, lint and web build. Automated test files and their dependencies were removed at the owner’s request.
 - Touch defaults on; permission-gated tilt requires explicit activation and HTTPS. No sensor telemetry. [Browser requirements](https://developer.mozilla.org/en-US/docs/Web/API/DeviceOrientationEvent/requestPermission_static).
 
 ## Pending release gates

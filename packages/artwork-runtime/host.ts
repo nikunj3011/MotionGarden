@@ -26,8 +26,8 @@ async function start(id: string) {
   try {
     await runtime.initialize({
       container,
-      manifest: await new StaticCloudflareRepository('/').get(id),
-      baseUrl: '/',
+      manifest: await new StaticCloudflareRepository(import.meta.env.BASE_URL).get(id),
+      baseUrl: import.meta.env.BASE_URL,
       transparent,
     });
     if (Object.keys(pendingValues).length) runtime.setParameters(pendingValues);

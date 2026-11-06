@@ -7,15 +7,12 @@
     "dev": "vite --host 0.0.0.0",
     "build": "tsc --noEmit && vite build",
     "package:native": "node tools/package-content.mjs",
-    "test": "vitest run",
     "validate": "node tools/validate.mjs",
-    "test:content": "node --test tools/content.test.mjs tools/adapter.test.mjs",
-    "test:ui": "playwright test",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "check": "npm run format:check && npm run lint && npm run test:content && npm test && npm run build"
+    "check": "npm run format:check && npm run lint && npm run build"
   },
   "dependencies": {
     "@noble/hashes": "^1.7.1",
@@ -30,7 +27,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@playwright/test": "^1.51.0",
+    "@types/node": "^22.20.5",
     "@types/p5": "^1.7.6",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
@@ -43,7 +40,6 @@
     "prettier": "^3.9.10",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.72.1",
-    "vite": "^6.0.0",
-    "vitest": "^5.1.0"
+    "vite": "^6.0.0"
   }
 }

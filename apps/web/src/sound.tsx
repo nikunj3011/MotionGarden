@@ -8,13 +8,21 @@ import {
   type ReactNode,
 } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
-import catalog from '../../../content/music/v1/index.json';
 import {
   MathematicalMusic,
   musicCatalogSchema,
   type MusicPiece,
 } from '../../../packages/generative-music';
-export const musicPieces = musicCatalogSchema.parse(catalog).items;
+export let musicPieces: MusicPiece[] = [];
+export async function loadMusicCatalog() {
+  const response = await fetch(`${import.meta.env.BASE_URL}music/v1/index.json`, {
+    signal: AbortSignal.timeout(15000),
+  });
+  if (!response.ok) throw new Error('Music catalog could not load.');
+  const pieces = musicCatalogSchema.parse(await response.json()).items;
+  if (!pieces.length) throw new Error('The music catalog is empty.');
+  musicPieces = pieces;
+}
 type SoundState = {
   reactive: boolean;
   setReactive: (value: boolean) => void;

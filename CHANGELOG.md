@@ -29,3 +29,15 @@ These describe repository changes, not deployed releases. Android/iOS shells exi
 - Updated Zod to the patched v4 release and migrated record schemas after a production dependency advisory.
 
 - Patched the test runner, removed critical dependency advisories, and kept Zod validation in CSP-compatible non-JIT mode. Moderate lint-tool advisories remain documented.
+
+### Follow-up cleanup
+
+- Fetch the music catalog from its public URL to avoid Vite public-directory imports.
+- Move touch/tilt controls above IN MOTION; keep music beside them on mobile.
+- Remove tests, test dependencies, generated captures and output folders as requested. Keep Prettier, lint and build checks in CI.
+
+### GitHub Pages deployment
+
+- Build/check pull requests; publish main through the Pages artifact and deployment actions.
+- Use the configured Pages base path for artwork, thumbnails and music, with refreshable hash routes.
+- Keep local development and native packaging behavior separate from Pages deployment.

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { StaticCloudflareRepository } from '../../../packages/artwork-sdk';
 export const repository = new StaticCloudflareRepository(
-  import.meta.env.VITE_CONTENT_BASE_URL || '/',
+  import.meta.env.VITE_CONTENT_BASE_URL || import.meta.env.BASE_URL,
 );
 export function useCatalog() {
   return useQuery({

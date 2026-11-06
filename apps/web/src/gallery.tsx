@@ -155,7 +155,7 @@ export default function Gallery() {
             <iframe
               ref={frame}
               title={`Preview of ${active.title}`}
-              src={`/renderer/v1/index.html?id=${encodeURIComponent(active.id)}&surface=transparent`}
+              src={`${import.meta.env.BASE_URL}renderer/v1/index.html?id=${encodeURIComponent(active.id)}&surface=transparent`}
               sandbox="allow-scripts allow-same-origin"
               tabIndex={-1}
             />

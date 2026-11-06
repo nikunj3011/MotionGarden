@@ -77,7 +77,7 @@ function ArtworkPlayer() {
       <iframe
         ref={frame}
         title={manifest?.title || 'Artwork'}
-        src={`/renderer/v1/index.html?id=${encodeURIComponent(id || '')}`}
+        src={`${import.meta.env.BASE_URL}renderer/v1/index.html?id=${encodeURIComponent(id || '')}`}
         sandbox="allow-scripts allow-same-origin"
         allow="fullscreen"
       />
