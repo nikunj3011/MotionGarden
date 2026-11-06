@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "revision": "2026-11-05.1",
+  "items": [
+    {
+      "id": "flow-field",
+      "manifest": "artworks/flow-field/v1/manifest.json"
+    },
+    {
+      "id": "orbit-sculpture",
+      "manifest": "artworks/orbit-sculpture/v1/manifest.json"
+    }
+  ]
+}

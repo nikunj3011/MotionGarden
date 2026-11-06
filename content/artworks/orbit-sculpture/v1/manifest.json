@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "id": "orbit-sculpture",
+  "title": "Orbital bloom",
+  "description": "Thirty-six delicate orbits unfold into a sculpture that never quite repeats.",
+  "category": "Sculptural",
+  "engine": "three",
+  "engineVersion": "0.170",
+  "hue": 28,
+  "tags": [
+    "3D",
+    "Geometry",
+    "WebGL"
+  ],
+  "version": "v1",
+  "creator": {
+    "name": "MotionGarden Studio",
+    "id": "motiongarden"
+  },
+  "entry": "artworks/orbit-sculpture/v1/sketch.js",
+  "thumbnail": "artworks/orbit-sculpture/v1/thumbnail.svg",
+  "checksum": "f29d0af8ce2a53f2ad21771318aa353aafb61868485fe2c3082233546f2cb1e5",
+  "minimumRendererVersion": 1,
+  "license": "MIT",
+  "remix": true,
+  "tier": "free",
+  "canvas": {
+    "responsive": true,
+    "background": "#13252f"
+  },
+  "capabilities": [
+    "webgl"
+  ],
+  "quality": {
+    "low": 350,
+    "high": 700
+  },
+  "parameters": [
+    {
+      "key": "speed",
+      "label": "Motion",
+      "min": 0.2,
+      "max": 3,
+      "step": 0.1,
+      "default": 1
+    },
+    {
+      "key": "hue",
+      "label": "Color",
+      "min": 0,
+      "max": 360,
+      "step": 1,
+      "default": 28
+    },
+    {
+      "key": "density",
+      "label": "Intensity",
+      "min": 5,
+      "max": 60,
+      "step": 1,
+      "default": 25
+    },
+    {
+      "key": "seed",
+      "label": "Seed",
+      "min": 1,
+      "max": 9999,
+      "step": 1,
+      "default": 42
+    }
+  ],
+  "presets": [
+    {
+      "name": "Still morning",
+      "values": {
+        "speed": 0.4,
+        "hue": 28,
+        "density": 18,
+        "seed": 42
+      }
+    },
+    {
+      "name": "After hours",
+      "values": {
+        "speed": 1.4,
+        "hue": 260,
+        "density": 40,
+        "seed": 117
+      }
+    }
+  ]
+}

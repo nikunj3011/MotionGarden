@@ -1,0 +1,9 @@
+# Delivery milestones
+
+1. **Current implementation / verification pending:** shared renderer contract, two original packages, React gallery/player, JSON/thumbnail structure, content validator, native host source and bundle-copy pipeline. Gate: install dependencies, type-check, build, run browser tests and render both artworks on Android and iOS. Fix any platform issues before calling this milestone complete.
+2. **Discovery and offline:** richer native galleries and controls, full native validation parity, remote catalog adapters, pagination/version selection, package downloads and invalidation, offline artwork caching, native favorites, quality settings, renderer timeouts and FPS adaptation. Add ten genuinely distinct works including a GLSL adapter; audio artwork must request permission explicitly.
+3. **Creative Studio:** CodeMirror 6, clearly labeled development entitlements, local draft repository, version history, isolated live preview, diagnostics, source export/import and remix permissions. Add meaningful draft/entitlement tests. Never present public manifest flags as proof of payment.
+4. **Publishing:** strengthen the provided CLI with atomic S3 immutability checks, durable rollback history, generated category/featured indexes, actual renderer-derived thumbnails and preview videos, submission package validation and CI deployment credentials. Current CLI has local rollback history and illustrated thumbnails only.
+5. **Production services:** authenticated future API adapter, account synchronization, moderated submissions, verified StoreKit/Play purchases and web billing. SEO prerendering, social previews, sitemap, light appearance, accessibility audit, battery/memory profiling and production device matrix are release gates.
+
+The original specification remains the full roadmap. Later features are not represented as empty product screens or claimed as delivered.

@@ -1,0 +1,658 @@
+# Generative Art Platform — Full Development Prompt
+
+I'd build this as a premium interactive generative art platform with native Android and iOS apps, a React website, and Cloudflare-hosted artwork packages.
+
+The most important architectural decision: start with Cloudflare R2 + JSON manifests, but design the data layer so you can replace it with ASP.NET Core or FastAPI later without rewriting the apps.
+
+You can also have two experiences:
+
+- Free — Art Explorer: browse, interact with, customize and save generative artworks.
+- Pro — Creative Studio: view source code, edit p5.js/Three.js, remix artworks, save code projects and access advanced creator tools.
+
+One important business detail: if a free artwork runs using JavaScript on a user's device, its source code cannot be kept completely secret. You can hide the code editor behind Pro, but someone technically capable can inspect downloaded JavaScript. If protecting proprietary source is essential, you'd need a different delivery model.
+
+## 1. Recommended names
+
+FormaFlux
+
+My favorite
+
+Art in motion. Code in creation.
+
+A memorable name for fluid geometry, generative systems and interactive visual art.
+
+AetherCanvas
+
+A universe of living artwork.
+
+More artistic and atmospheric, especially for an immersive visual gallery.
+
+Genera
+
+Create beyond the canvas.
+
+Short and minimal, with room to expand into creative tools.
+
+PixelOrbit
+
+Explore the mathematics of beauty.
+
+Approachable and descriptive for both a gallery and coding playground.
+
+Other candidates: Lumaform, Fractora, Fluxarium, Parametra, MotionMuse, InfiniteForms, Vectara, ShaderGarden, Artmorph, and Kinetica.
+
+These are creative suggestions, not trademark- or domain-availability-checked names.
+
+## 2. Recommended Cloudflare-first architecture
+
+Android
+
+Kotlin + Compose
+
+iOS
+
+SwiftUI
+
+Website
+
+React + TS
+
+Shared artwork SDK
+
+TypeScript · p5.js · Three.js · GLSL · WebGL
+
+Cloudflare CDN + R2
+
+JSON catalog · manifests · images · JS · shaders
+
+Future API adapter
+
+ASP.NET Core / FastAPI · accounts · publishing · payments
+
+For native development, you have two good choices. Since you specifically want native experiences on both platforms, I'd use Kotlin + Jetpack Compose on Android and Swift + SwiftUI on iOS, sharing the TypeScript artwork renderer and JSON contract. This means more platform UI code than Kotlin Multiplatform, but greater independence for native platform features.
+
+If minimizing duplicated mobile code becomes more important, Kotlin Multiplatform with Compose is the alternative.
+
+### Cloudflare storage organization
+
+```
+R2 Bucket: formaflux-content
+│
+├── catalog/
+│   ├── v1/
+│   │   ├── index.json
+│   │   ├── featured.json
+│   │   ├── trending.json
+│   │   ├── categories.json
+│   │   └── collections/
+│   │       ├── mathematics.json
+│   │       ├── particles.json
+│   │       └── shaders.json
+│
+├── artworks/
+│   └── particle-galaxy/
+│       └── v1/
+│           ├── manifest.json
+│           ├── sketch.js
+│           ├── thumbnail.webp
+│           ├── preview.mp4
+│           └── shaders/
+│               ├── vertex.glsl
+│               └── fragment.glsl
+│
+├── renderer/
+│   └── v1/
+│       ├── index.html
+│       ├── runtime.js
+│       └── vendor/
+│
+└── creators/
+    └── featured.json
+```
+
+You can serve public content from a custom domain such as `cdn.yourdomain.com`, backed by R2.
+
+Use immutable paths for versioned artwork files, long-lived caching for those files, and short caching for catalog indexes. Avoid overwriting published versions.
+
+## 3. Master prompt — copy into your coding agent
+
+This prompt is designed for a coding agent that can create a monorepo, edit files and run builds. It specifies the architecture, UI, storage, renderer, monetization and testing requirements.
+
+# Build FormaFlux — Native Generative Art Platform
+
+You are a principal Android engineer, senior iOS engineer, React architect, graphics programmer, product designer and cloud architect.
+
+Build a production-quality cross-platform generative art platform named **FormaFlux**.
+
+The platform must have three clients:
+
+1. Native Android application using Kotlin, Jetpack Compose and Material 3.
+2. Native iOS application using Swift, SwiftUI and modern Apple platform APIs.
+3. Responsive React website using TypeScript, Vite and Tailwind CSS.
+
+The platform displays beautiful, interactive, mathematical and procedural artworks created using p5.js, Three.js, GLSL shaders and other compatible browser graphics engines.
+
+The application must look premium, modern, artistic and visually impressive, while remaining smooth, accessible and battery-conscious.
+
+**Critical requirement:** All three clients must use the same artwork packages and JSON data contracts. Do not duplicate artwork rendering algorithms in Kotlin, Swift and React.
+
+## A. Architecture
+
+Create a monorepo:
+
+```
+formaflux/
+├── apps/
+│   ├── android/
+│   ├── ios/
+│   └── web/
+├── packages/
+│   ├── artwork-runtime/
+│   ├── artwork-sdk/
+│   ├── artwork-contracts/
+│   ├── artwork-editor/
+│   └── design-tokens/
+├── content/
+│   ├── catalog/
+│   ├── artworks/
+│   └── creators/
+├── tools/
+│   ├── content-validator/
+│   ├── thumbnail-generator/
+│   └── cloudflare-publisher/
+├── infrastructure/
+│   └── cloudflare/
+├── docs/
+└── .github/workflows/
+```
+
+Android and iOS must have genuinely native navigation, controls, gestures, accessibility and system integrations.
+
+The artwork itself should render through:
+
+- Android: WebView using a controlled local asset origin.
+- iOS: WKWebView with a controlled renderer bundle.
+- React: browser-based rendering component.
+
+Create a shared TypeScript artwork runtime capable of loading p5.js, Three.js and shader-based artworks.
+
+Use an engine adapter pattern so new rendering engines can be added later.
+
+## B. Cloudflare-first backend
+
+For version 1, do not require a traditional application backend.
+
+Use:
+
+- Cloudflare R2 for JSON manifests, artwork JavaScript, shader files, thumbnails and preview videos.
+- Cloudflare CDN with a custom domain.
+- Cloudflare Pages for hosting the React website.
+- Static JSON catalogs for public discovery.
+
+Create a storage abstraction:
+
+```
+ArtworkRepository
+    |
+    +-- StaticCloudflareRepository
+    |
+    +-- FutureApiRepository
+```
+
+Implement the static repository now.
+
+Define interfaces for the future API repository without creating an unnecessary backend.
+
+All clients must support configurable base URLs for development, staging and production.
+
+Add HTTP caching, conditional requests, local artwork caching, retry logic and offline fallback.
+
+Use versioned content paths and checksums to ensure artwork packages are consistent.
+
+Create a Cloudflare publishing CLI that:
+
+1. Validates artwork metadata.
+2. Checks source files and asset references.
+3. Generates artwork thumbnails and preview media where supported.
+4. Generates category and featured indexes.
+5. Uploads immutable artwork versions to R2.
+6. Publishes updated catalog JSON only after successful uploads.
+7. Supports rollback to a previous catalog.
+
+## C. Artwork JSON schema
+
+Create a versioned artwork manifest supporting:
+
+- Unique ID and slug.
+- Title, description and tags.
+- Creator and attribution.
+- Rendering engine and version.
+- Source files and asset references.
+- Canvas settings.
+- Supported device capabilities.
+- Artwork parameters.
+- Default presets.
+- Quality profiles.
+- Free/Pro feature metadata.
+- Remix permissions and licensing.
+- Thumbnail and preview video.
+- Minimum renderer version.
+- Package checksum.
+
+Use JSON Schema or Zod for TypeScript validation and equivalent validation in Kotlin and Swift.
+
+Implement backward-compatible schema evolution.
+
+## D. Native Android application
+
+Use Kotlin, Jetpack Compose, Material 3, Coroutines, StateFlow, ViewModel, Navigation Compose, OkHttp or Ktor, Coil, Room and dependency injection.
+
+Build:
+
+- Explore screen.
+- Trending and featured galleries.
+- Search and category browsing.
+- Artwork details.
+- Immersive artwork player.
+- Interactive parameter controls.
+- Favorites and collections.
+- Offline downloads.
+- Creator profiles.
+- Creative coding editor.
+- Subscription and entitlement UI.
+- Settings and performance controls.
+
+Use Android WebView with WebViewAssetLoader and appropriate lifecycle handling.
+
+Support edge-to-edge layouts, predictive back navigation where available, adaptive layouts and dark/light appearance.
+
+Implement secure JavaScript-to-Kotlin communication through a restricted and validated message protocol.
+
+## E. Native iOS application
+
+Use Swift, SwiftUI, async/await, URLSession, Codable, NavigationStack, SwiftData or another appropriate persistence solution, and StoreKit 2.
+
+Implement feature parity with Android.
+
+Use WKWebView for artwork rendering, with a controlled script message bridge and navigation restrictions.
+
+Support native sheets, haptics, share sheets, dynamic type, safe areas, adaptive layouts and system appearance.
+
+Store sensitive credentials in Keychain.
+
+Ensure proper WKWebView cleanup, background pause and memory management.
+
+## F. React website
+
+Use React, TypeScript, Vite, Tailwind CSS, React Router and TanStack Query.
+
+Build a premium responsive website with:
+
+- Animated landing page.
+- Public artwork gallery.
+- Artwork detail pages.
+- Fullscreen artwork player.
+- Interactive parameters.
+- Search and category filters.
+- Creator profiles.
+- User library.
+- Creative coding studio.
+- Pricing and subscription information.
+- Help and documentation pages.
+
+Use route-level code splitting, image optimization, lazy loading and accessible controls.
+
+Avoid running multiple expensive artwork renderers simultaneously while scrolling.
+
+Implement search-friendly artwork pages, structured metadata, sitemap generation and social preview images.
+
+## G. Shared rendering engine
+
+Build one reusable artwork runtime in TypeScript.
+
+Supported engines:
+
+1. p5.js for 2D mathematical art and interactive sketches.
+2. Three.js for 3D scenes, particles, lighting and procedural geometry.
+3. GLSL/WebGL for shader-based effects.
+
+Expose:
+
+```
+interface ArtworkEngine {
+  initialize(config: ArtworkConfig): Promise<void>;
+  setParameters(values: Record<string, unknown>): void;
+  resize(width: number, height: number): void;
+  pause(): void;
+  resume(): void;
+  capture(): Promise<Blob>;
+  dispose(): void;
+}
+```
+
+Implement engine-specific adapters.
+
+The native host must send typed messages including INIT, READY, SET_PARAMETERS, RESIZE, PAUSE, RESUME, CAPTURE, ERROR and DISPOSE.
+
+Implement runtime error boundaries, WebGL context-loss recovery, adaptive rendering quality and FPS monitoring.
+
+Do not allow untrusted artwork scripts to access authentication tokens, privileged native APIs or arbitrary external websites.
+
+Use isolated execution contexts, restrictive permissions, navigation restrictions and a carefully audited native bridge.
+
+## H. Artwork player
+
+Create a visually immersive fullscreen artwork player.
+
+Features:
+
+- Hideable controls.
+- Touch and gesture interactions.
+- Play and pause.
+- Parameter sliders.
+- Color controls.
+- Random seed generation.
+- Reset to defaults.
+- Save custom presets.
+- Favorite artwork.
+- Screenshot export.
+- Share artwork links.
+- Fullscreen distraction-free mode.
+- Adaptive quality selection.
+
+Preserve the artwork's intended aspect ratio or responsive behavior.
+
+Support portrait, landscape and tablet layouts.
+
+## I. Pro creative coding studio
+
+Create a paid Creative Studio experience.
+
+Features:
+
+- Source code viewing.
+- CodeMirror 6 editor.
+- Syntax highlighting.
+- p5.js and Three.js autocomplete.
+- Error diagnostics.
+- Live preview.
+- Console output.
+- Undo and redo.
+- Private drafts.
+- Source version history.
+- Fork and remix.
+- Parameter editing.
+- Export code packages.
+- Import supported artwork projects.
+
+Use a dedicated editor layout for phones, tablets and desktop browsers.
+
+Drafts must be stored locally for the initial version.
+
+The architecture must allow cloud synchronization later.
+
+## J. Free and paid features
+
+Free users can:
+
+- Browse the public gallery.
+- Run and interact with free artworks.
+- Change basic parameters.
+- Save local favorites.
+- Share artwork links.
+- Download permitted free artwork images.
+
+Pro users can additionally:
+
+- Open the integrated source viewer.
+- Use the live code editor.
+- Save code projects.
+- Remix supported artworks.
+- Export source packages.
+- Access advanced presets and creator tools.
+
+Implement an entitlement abstraction rather than hardcoding subscription logic into screens.
+
+Do not treat public JSON flags as proof of payment.
+
+Use Google Play Billing and StoreKit 2 for supported mobile purchases, with server-side entitlement verification when purchases launch.
+
+For the website, design a future Stripe integration and secure account-based entitlement system.
+
+Do not pretend a static JSON-only backend can securely validate purchases or protect proprietary JavaScript source.
+
+For the initial prototype, use clearly labeled development entitlements with no real payment processing.
+
+## K. Design system
+
+Create a premium visual design system.
+
+Style:
+
+- Dark-first appearance.
+- Near-black backgrounds.
+- Large immersive artwork previews.
+- Refined typography.
+- Subtle glass and translucent overlays.
+- Minimal navigation chrome.
+- Soft gradients used selectively.
+- Smooth native transitions.
+- Consistent rounded components.
+- High-quality loading states.
+
+The artwork must remain the main visual focus.
+
+Avoid excessive UI animation, clutter, bright borders and generic dashboard aesthetics.
+
+Provide dark and light modes, accessible contrast, reduced-motion support and responsive layouts.
+
+## L. Initial artwork collection
+
+Create at least 12 original demo artworks:
+
+1. Particle flow field.
+2. Perlin-noise waves.
+3. Mathematical spirograph.
+4. Interactive fractal explorer.
+5. Geometric mandala.
+6. Audio-reactive visualization with permission.
+7. 3D particle galaxy.
+8. Procedural torus sculpture.
+9. Animated shader gradient.
+10. Kaleidoscopic patterns.
+11. Reaction-diffusion-inspired visual.
+12. Interactive constellation field.
+
+Use deterministic random seeds where practical.
+
+Optimize each artwork for mobile and provide thumbnails, metadata, parameters and quality settings.
+
+Do not copy other artists' proprietary code or artwork.
+
+## M. Creator submissions
+
+For the first release, provide a local artwork submission workflow:
+
+- Create a draft.
+- Validate metadata.
+- Preview artwork.
+- Export a submission package.
+
+Do not implement public uploads without authentication, abuse controls and moderation.
+
+Design future API contracts for authenticated creator submissions, review status, approval, rejection and versioned publishing.
+
+## N. Security and performance
+
+Implement:
+
+- JSON schema validation.
+- Content Security Policy where applicable.
+- Restricted network access for artwork code.
+- Origin-scoped native messaging.
+- Asset size limits.
+- Renderer timeouts and restart controls.
+- WebGL capability detection.
+- Device-aware particle and resolution limits.
+- Background rendering pause.
+- Memory cleanup.
+- Offline caching.
+- Dependency auditing.
+- Privacy-conscious telemetry.
+
+Explain remaining risks of executing user-authored JavaScript.
+
+## O. Testing
+
+Create unit, integration and UI tests.
+
+Test:
+
+- JSON schema parsing.
+- Catalog pagination.
+- Artwork version selection.
+- Cache invalidation.
+- Parameter updates.
+- Renderer initialization and disposal.
+- JavaScript bridge validation.
+- Offline mode.
+- Editor draft persistence.
+- Entitlement checks.
+- WebGL context recovery.
+
+Provide Android emulator, iOS simulator and browser testing instructions.
+
+## P. Deliverables
+
+Produce actual working source code, not only pseudocode.
+
+Include:
+
+- Full monorepo.
+- Android application.
+- iOS application.
+- React website.
+- Shared renderer and SDK.
+- Cloudflare R2 content structure.
+- Publishing CLI.
+- Demo artworks.
+- Sample JSON.
+- Environment templates.
+- CI/CD workflows.
+- Architecture documentation.
+- Local development instructions.
+- Deployment instructions.
+
+Work in milestones, completing and testing the shared renderer and one artwork across all three clients before expanding the gallery.
+
+Do not claim successful builds or tests unless they were actually run.
+
+Prioritize a working, polished vertical slice over creating many incomplete files.
+
+**Final objective:** A visually exceptional native mobile and web generative art platform that uses Cloudflare-hosted JSON and artwork packages today and can migrate to a full authenticated API in the future without rewriting the clients.
+
+## 4. Additional features that could make the app stand out
+
+I would focus on features that make the art feel alive, rather than adding dozens of ordinary social features.
+
+[Vector Field - Abstract Rebellion](https://images.openai.com/static-rsc-4/pS52uLRx191jsVLFuUvMYvFpf_4ITRYREz3dUnTuRDYAPjHInefSakwGfTlqhf9m_YCGxdRnBZ3FD18-okCU4QbC_Wer-NpXPn7DPc2k3WkSkHU_YlXtcTiWJXJZ_gdJtAQFKz4-UWJwDN3Ek-_XSVl7gFsFJA6DPKA1n21lIrA?purpose=inline)
+
+1\. Living wallpapers
+
+Turn compatible artworks into animated wallpapers. Android can use a native live wallpaper service; iOS has more restrictive wallpaper capabilities, so offer exports appropriate to the platform.
+
+[A detailed colorful multicolored equalizer in a circle. Audio spectrum](https://images.openai.com/static-rsc-4/Fd4QvpHS5HITftjK-_zvBSTQFWqUv0iOkksGYBqQb-AKEKcdAYeg_F05bvCEOuLgFsuTDHdTCkAdaiz_AC0AWWB7g2p33Ndi6H7nKcYpsnEi4dUygpdZtqAzVEqUwlM4oNNnkaqhWgKwNKDdC-1pW_ynQR6NY6OiHiiZhV31Hq6cxroskxymD4K9cai7cSpD?purpose=inline)
+
+2\. Sound-reactive art
+
+Make artwork respond to microphone input, rhythm and sound intensity, with user permission and on-device processing.
+
+[About — Inverse Fractal](https://images.openai.com/static-rsc-4/cD6WZSG0PI7vEJjk96lWGQR3Pr65rcCiaMnhqdwCatvlnGHLTELk8_yXdXQPeTAVdjdDGCLvXpROK0CRpwwvQyvvzj2JwMLrySv_HzmpNlw9bXKXKK5hrs3Qg5t6-XIWgZQN4MUeEy-eKJNr7YRV-w9VPeEoA9hnr1Jxq3HtiLw?purpose=inline)
+
+3\. Infinite variations
+
+Every artwork supports random seeds, palettes and presets. Users can discover millions of variations without downloading additional artwork packages.
+
+[Midjourney  Fluid Image Prompts • PromptDen](https://images.openai.com/static-rsc-4/64Zno4waRtvuore0ILN-HHIzGjbv54gpiU032VDszE1s4fpru9-DJDxrVxNkbKeVZwMIll2fD2BvCzsMzQ8kFHMVAitvSbWasIKlkTh6TDMWsTNnIoBK6j027T2MX85BczBG1Dscc8k9fDK3cucdL-70FMxEbYy2E7ANO9XfEO4?purpose=inline)
+
+4\. Motion-controlled artwork
+
+Rotate and transform 3D creations using device orientation, touch gestures and accelerometer data.
+
+[SEBASTIEN PRESCHOUX](https://images.openai.com/static-rsc-4/FlE1jl_5etA_o_9v1p-dH3t6AQn9Wg5zWhWMtYo3nDJSnBdMnBlKkL2t7cAUBOMafP1Tnuzp1cTIsMaWpi_nKXZ1Vpy99Sa-cw40-YPbERvGGfcD6L4v5bHD9egQUNW8V9lROj_bokCWug8k5kW-N6a_aeNMMSbh7UJG9Spz7YU?purpose=inline)
+
+5\. High-resolution art export
+
+Export PNG, SVG where supported, and eventually video. A particularly useful Pro feature for creators.
+
+### More ideas, ranked by priority
+
+| Feature                         | Tier     | Priority |
+| ------------------------------- | -------- | -------- |
+| Daily featured artwork          | Free     | High     |
+| Save custom presets             | Free     | High     |
+| Interactive fullscreen mode     | Free     | High     |
+| Artwork collections             | Free     | High     |
+| Source viewer                   | Pro      | High     |
+| Live coding editor              | Pro      | High     |
+| Remix and fork                  | Pro      | High     |
+| High-resolution export          | Pro      | High     |
+| Artwork comparison / variations | Pro      | Medium   |
+| Audio-reactive artwork          | Free/Pro | Medium   |
+| Wallpaper integration           | Free/Pro | Medium   |
+| AI-assisted code creation       | Pro      | Later    |
+| Creator marketplace             | Future   | Later    |
+| Community challenges            | Future   | Later    |
+| Collaborative live coding       | Future   | Later    |
+
+A particularly interesting feature would be Artwork Evolution: select two compatible presets and generate a smooth transition between them, allowing users to discover entirely new visual combinations.
+
+## 5. How the paid model should work
+
+Free Explorer
+
+# Free
+
+&#x20;Artwork gallery
+
+&#x20;Fullscreen playback
+
+&#x20;Basic controls
+
+&#x20;Favorites
+
+&#x20;Standard exports
+
+Creative Studio Pro
+
+# Paid
+
+&#x20;Everything in Free
+
+&#x20;Source code viewer
+
+&#x20;Live code editor
+
+&#x20;Remix projects
+
+&#x20;Advanced exports
+
+For monetization, a one-time Pro unlock may be simpler for an initial creative tool. A subscription becomes more justifiable later if you provide ongoing services such as cloud projects, AI generation, collaboration and substantial new content.
+
+With static Cloudflare JSON alone, you can prototype these tiers, but real cross-device subscriptions require secure purchase verification and account/entitlement infrastructure. A small Cloudflare Worker with D1 or another persistent store could be an intermediate step before a full API.
+
+## 6. My recommended first release
+
+Build around these five milestones:
+
+1. Shared renderer: one p5.js artwork and one Three.js artwork running on Android, iOS and React.
+2. Cloudflare catalog: JSON-driven artwork discovery, thumbnails, categories and versioned downloads.
+3. Premium gallery: native interfaces, fullscreen artwork, parameters and favorites.
+4. Creative Studio: source viewer, code editor, local drafts and remixing.
+5. Publishing pipeline: validate an artwork, generate a preview and upload it to R2 using a developer CLI.
+
+The biggest advantage of this approach is that you can create one new artwork, upload its package and update the catalog JSON, and it becomes available on all three platforms.
+
+My preferred name is FormaFlux, with AetherCanvas as the alternative if you want a more artistic, less developer-oriented identity. Before committing, check trademarks, app-store names and domain availability.
+
+The one feature I'd prioritize beyond the basic gallery is interactive artwork customization with saved presets. It gives free users something genuinely engaging, makes the gallery more than a collection of videos, and creates a natural path toward the Pro editor.

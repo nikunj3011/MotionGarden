@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.env.local
+.DS_Store
+*.log
+apps/android/.gradle/
+apps/android/local.properties
+apps/android/**/build/
+apps/ios/.build/
+work/
+test-results/
+playwright-report/
+apps/android/app/src/main/assets/bundle/
+apps/ios/MotionGarden/bundle/

@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "id": "flow-field",
+  "title": "Quiet currents",
+  "description": "A thousand small journeys, guided by an invisible field. Touch the canvas to plant a new current.",
+  "category": "Organic",
+  "engine": "p5",
+  "engineVersion": "1.11",
+  "hue": 96,
+  "tags": [
+    "Flow fields",
+    "Particles",
+    "Interactive"
+  ],
+  "version": "v1",
+  "creator": {
+    "name": "MotionGarden Studio",
+    "id": "motiongarden"
+  },
+  "entry": "artworks/flow-field/v1/sketch.js",
+  "thumbnail": "artworks/flow-field/v1/thumbnail.svg",
+  "checksum": "c46dd01ff8df686ae7d20cefca1621c1960b23b6058f22f7baa99b046d581b7f",
+  "minimumRendererVersion": 1,
+  "license": "MIT",
+  "remix": true,
+  "tier": "free",
+  "canvas": {
+    "responsive": true,
+    "background": "#13252f"
+  },
+  "capabilities": [
+    "canvas2d"
+  ],
+  "quality": {
+    "low": 350,
+    "high": 700
+  },
+  "parameters": [
+    {
+      "key": "speed",
+      "label": "Motion",
+      "min": 0.2,
+      "max": 3,
+      "step": 0.1,
+      "default": 1
+    },
+    {
+      "key": "hue",
+      "label": "Color",
+      "min": 0,
+      "max": 360,
+      "step": 1,
+      "default": 96
+    },
+    {
+      "key": "density",
+      "label": "Intensity",
+      "min": 5,
+      "max": 60,
+      "step": 1,
+      "default": 25
+    },
+    {
+      "key": "seed",
+      "label": "Seed",
+      "min": 1,
+      "max": 9999,
+      "step": 1,
+      "default": 42
+    }
+  ],
+  "presets": [
+    {
+      "name": "Still morning",
+      "values": {
+        "speed": 0.4,
+        "hue": 96,
+        "density": 18,
+        "seed": 42
+      }
+    },
+    {
+      "name": "After hours",
+      "values": {
+        "speed": 1.4,
+        "hue": 260,
+        "density": 40,
+        "seed": 117
+      }
+    }
+  ]
+}
